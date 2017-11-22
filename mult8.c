@@ -17,21 +17,25 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			sum5 = 0;
 			sum6 = 0;
 			sum7 = 0;
-			
-			for (k = 0; k < n; k+=8)
+			/*Make sure matrix is of correct size first*/
+			if(n >= 8)
 			{
-				sum = sum + a[in+k] * b[k*n+j];
-				sum1 = sum1 + a[in+(k+1)] * b[(k+1)*n+j];
-				sum2 = sum2 + a[in+(k+2)] * b[(k+2)*n+j];
-				sum3 = sum3 + a[in+(k+3)] * b[(k+3)*n+j];
-				sum4 = sum4 + a[in+(k+4)] * b[(k+4)*n+j];
-				sum5 = sum5 + a[in+(k+5)] * b[(k+5)*n+j];
-				sum6 = sum6 + a[in+(k+6)] * b[(k+6)*n+j];
-				sum7 = sum7 + a[in+(k+7)] * b[(k+7)*n+j];
+				for (k = 0; k < n; k+=8)
+				{
+					sum = sum + a[in+k] * b[k*n+j];
+					sum1 = sum1 + a[in+(k+1)] * b[(k+1)*n+j];
+					sum2 = sum2 + a[in+(k+2)] * b[(k+2)*n+j];
+					sum3 = sum3 + a[in+(k+3)] * b[(k+3)*n+j];
+					sum4 = sum4 + a[in+(k+4)] * b[(k+4)*n+j];
+					sum5 = sum5 + a[in+(k+5)] * b[(k+5)*n+j];
+					sum6 = sum6 + a[in+(k+6)] * b[(k+6)*n+j];
+					sum7 = sum7 + a[in+(k+7)] * b[(k+7)*n+j];
+				}
+			
+				sum = sum + sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
 			}
-			sum = sum + sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
 			/*for loop that starts at tail cases and handles them one by one*/
-			for(k=n-(n%k); k < n; ++k)
+			for(k=n-(n%8); k < n; ++k)
 			{
 				sum = sum + a[in+k] * b[k*n+j];
 			}
