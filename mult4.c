@@ -5,6 +5,8 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 	long i=0, j=0, k=0;
 	/* Initialize sum variables */
 	unsigned long sum, sum1, sum2, sum3, sum4;
+	/* Value for the furthest index the unrolled loop can go */
+	long end = n - (n % 4);
 
 	/* 
 	 * First (outer) loop
@@ -35,7 +37,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			 */
 			if (n >= 4)
 			{
-				for (k = 0; k < n; k+=4)
+				for (k = 0; k < end; k+=4)
 				{
 					/* Group four iterations of the loop into one */
 					sum1 = sum1 + a[in+k] * b[k*n+j];
@@ -58,7 +60,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			 * If n % k is zero (no tail cases), then the loop will simply
 			 * never be run. It'll fail the condition immediately
 			 */
-			for (k = n - (n % 4); k < n; ++k)
+			for (k = end; k < n; ++k)
 			{
 				sum = sum + a[in+k] * b[k*n+j];
 			}
