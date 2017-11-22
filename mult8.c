@@ -3,11 +3,11 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 	/*init index variables*/
 	long i=0, j=0, k=0;
 	unsigned long sum, sum1, sum2, sum3, sum4, sum5, sum6, sum7;
-	long end = n - (n % 4);
-	for (i = 0; i < n; i++)
+	long end = n - (n % 8);
+	for (i = 0; i < n; ++i)
 	{
 		long in = i*n;
-		for (j = 0; j < n; j++)
+		for (j = 0; j < n; ++j)
 		{
 		/*assign zero values to sums*/
 			sum = 0;
@@ -19,9 +19,9 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			sum6 = 0;
 			sum7 = 0;
 			/*Make sure matrix is of correct size first*/
-			if(n >= 8)
+			if (n >= 8)
 			{
-				for (k = 0; k < n; k+=8)
+				for (k = 0; k < end; k+=8)
 				{
 					sum = sum + a[in+k] * b[k*n+j];
 					sum1 = sum1 + a[in+(k+1)] * b[(k+1)*n+j];
@@ -36,7 +36,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 				sum = sum + sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
 			}
 			/*for loop that starts at tail cases and handles them one by one*/
-			for(k=end; k < n; ++k)
+			for (k = end; k < n; ++k)
 			{
 				sum = sum + a[in+k] * b[k*n+j];
 			}
