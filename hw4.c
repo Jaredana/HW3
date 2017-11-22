@@ -101,7 +101,7 @@ int main(int argc, char*argv[])
   ByteMult(a, b, result, matrixsize);
   
   gettimeofday(&ti, NULL);
-  for (iter = 0; iter < FAST_TRIALS; iter++)
+  for (iter = 0; iter < TRIALS; iter++)
   {   
       ByteMult(a, b, result, matrixsize);
   }
