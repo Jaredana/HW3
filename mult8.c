@@ -33,7 +33,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			/*for loop that starts at tail cases and handles them one by one*/
 			for(k=n-(n%k); k < n; ++k)
 			{
-				sum+= sum + a[in+k] * b[k*n+j];
+				sum = sum + a[in+k] * b[k*n+j];
 			}
 			c[in+j] = sum;
 		}
