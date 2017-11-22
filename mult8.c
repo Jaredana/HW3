@@ -3,6 +3,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 	/*init index variables*/
 	long i=0, j=0, k=0;
 	unsigned long sum, sum1, sum2, sum3, sum4, sum5, sum6, sum7;
+	long end = n - (n % 4);
 	for (i = 0; i < n; i++)
 	{
 		long in = i*n;
@@ -35,7 +36,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 				sum = sum + sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
 			}
 			/*for loop that starts at tail cases and handles them one by one*/
-			for(k=n-(n%8); k < n; ++k)
+			for(k=end; k < n; ++k)
 			{
 				sum = sum + a[in+k] * b[k*n+j];
 			}
