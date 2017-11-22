@@ -29,16 +29,22 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			/* 
 			 * Third (inner) loop
 			 * Increment the loop by four for this unroll
+			 *
+			 * Only start at this loop if the matrix size is greater than
+			 * or equal to four
 			 */
-			for (k = 0; k < n; k+=4)
+			if (n >= 4)
 			{
-				/* Group four iterations of the loop into one */
-				sum1 = sum1 + a[in+k] * b[k*n+j];
-				sum2 = sum2 + a[in+(k+1)] * b[(k+1)*n+j];
-				sum3 = sum3 + a[in+(k+2)] * b[(k+2)*n+j];
-				sum4 = sum4 + a[in+(k+3)] * b[(k+3)*n+j];
+				for (k = 0; k < n; k+=4)
+				{
+					/* Group four iterations of the loop into one */
+					sum1 = sum1 + a[in+k] * b[k*n+j];
+					sum2 = sum2 + a[in+(k+1)] * b[(k+1)*n+j];
+					sum3 = sum3 + a[in+(k+2)] * b[(k+2)*n+j];
+					sum4 = sum4 + a[in+(k+3)] * b[(k+3)*n+j];
+				}
+				sum = sum1 + sum2 + sum3 + sum4;
 			}
-			sum = sum1 + sum2 + sum3 + sum4;
 
 			/*
 			 * Handle tail cases
@@ -52,7 +58,7 @@ void ByteMult(unsigned long* a, unsigned long* b, unsigned long*c, long n)
 			 * If n % k is zero (no tail cases), then the loop will simply
 			 * never be run. It'll fail the condition immediately
 			 */
-			for (k = n - (n % k); k < n; ++k)
+			for (k = n - (n % 4); k < n; ++k)
 			{
 				sum = sum + a[in+k] * b[k*n+j];
 			}
